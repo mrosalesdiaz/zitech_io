@@ -1,0 +1,25 @@
+{
+  "name": "zitech_io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/server.js",
+  "scripts": {
+    "server": "node lib/server.js",
+    "server:debug": "node --inpect=12090 lib/server.js",
+    "server:watch": "nodemon -w lib -w lib/api/openapi.yaml -w lib/server.js  lib/server.js",
+    "test": "ava"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^5.3.1",
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "@oas-tools/core": "^3.1.0",
+    "express": "^4.18.2",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
+    "uuid": "^9.0.1"
+  }
+}

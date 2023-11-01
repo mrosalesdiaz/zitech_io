@@ -1,0 +1,122 @@
+openapi: 3.0.3
+info:
+  title: Bingo API
+  version: 1.0.0
+servers:
+- url: http://localhost:12500/api/v1
+tags:
+  - name: All
+    description: All
+
+paths:
+  /bingo/{bingoId}:
+    get:
+      tags:
+        - All
+      operationId: getBingo
+      x-router-controller: bingo-controller
+      parameters:
+        - $ref: '#/components/parameters/bingoId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          $ref: '#/components/responses/ApiInternalError'
+
+  /bingo/:
+    post:
+      tags:
+        - All
+      operationId: createBingo
+      x-router-controller: bingo-controller
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bingo'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          $ref: '#/components/responses/ApiInternalError'
+
+  /bingo/{bingoId}/cards:
+    post:
+      tags:
+        - All
+      operationId: generateCard
+      x-router-controller: bingo-controller
+      parameters:
+        - $ref: '#/components/parameters/bingoId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          $ref: '#/components/responses/ApiInternalError'
+
+  /bingo/{bingoId}/number:
+    get:
+      tags:
+        - All
+      operationId: getNumber
+      x-router-controller: bingo-controller
+      parameters:
+        - $ref: '#/components/parameters/bingoId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          $ref: '#/components/responses/ApiInternalError'
+
+
+components:
+  responses:
+    ApiInternalError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Internal Server Error
+
+  schemas:
+    Bingo:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+    
+  parameters:
+    bingoId:
+      name: bingoId
+      in: path
+      description: The bingo id
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+      example: 3c17dcf0-e906-47c2-acb9-2a3e8d7780c3
+
